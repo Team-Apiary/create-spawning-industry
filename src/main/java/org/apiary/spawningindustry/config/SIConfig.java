@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 
 @EventBusSubscriber(modid = SIConstants.MODID, bus = EventBusSubscriber.Bus.MOD)
 public class SIConfig {
-    private static final ModConfigSpec.Builder BUILDER = new ModConfigSpec.Builder();
+    /*private static final ModConfigSpec.Builder BUILDER = new ModConfigSpec.Builder();
 
     private static final ModConfigSpec.BooleanValue LOG_DIRT_BLOCK = BUILDER
             .comment("Whether to log the dirt block on common setup")
@@ -59,5 +59,5 @@ public class SIConfig {
         items = ITEM_STRINGS.get().stream()
                 .map(itemName -> BuiltInRegistries.ITEM.get(ResourceLocation.parse(itemName)))
                 .collect(Collectors.toSet());
-    }
+    }*/
 }
