@@ -1,2 +1,4 @@
-// 1.21.1	2025-06-16T19:25:25.535169158	Tags for minecraft:block mod id spawningindustry
+// 1.21.1	2025-06-16T20:23:46.102503254	Tags for minecraft:block mod id spawningindustry
+fb69ac977ef2984bf010138ee2a50c2bd75951e7 data/c/tags/block/storage_blocks.json
+fb69ac977ef2984bf010138ee2a50c2bd75951e7 data/minecraft/tags/block/beacon_base_blocks.json
 fb69ac977ef2984bf010138ee2a50c2bd75951e7 data/minecraft/tags/block/mineable/pickaxe.json

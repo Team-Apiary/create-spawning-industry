@@ -1,9 +1,9 @@
 {
   "type": "minecraft:crafting_shaped",
-  "category": "misc",
+  "category": "building",
   "key": {
     "#": {
-      "item": "spawningindustry:haunted_iron_nugget"
+      "item": "spawningindustry:haunted_iron_ingot"
     }
   },
   "pattern": [
@@ -12,6 +12,7 @@
     "###"
   ],
   "result": {
-    "id": "spawningindustry:haunted_iron_ingot"
+    "count": 1,
+    "id": "spawningindustry:haunted_iron_block"
   }
 }

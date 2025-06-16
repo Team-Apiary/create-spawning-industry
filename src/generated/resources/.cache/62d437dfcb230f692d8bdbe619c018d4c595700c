@@ -1,1 +1,5 @@
-// 1.21.1	2025-06-16T19:25:25.537611474	Tags for minecraft:item mod id spawningindustry
+// 1.21.1	2025-06-16T20:15:37.006303884	Tags for minecraft:item mod id spawningindustry
+d4ff2d4e561f851b4e01c5b500f42ca113f0722a data/c/tags/item/ingots.json
+612ae044ba19b8aca5f7b12fa5ed7091febb7a73 data/c/tags/item/nuggets.json
+7a594c7be6ee82d6a003de004f08ebf86d273723 data/c/tags/item/plates.json
+d4ff2d4e561f851b4e01c5b500f42ca113f0722a data/minecraft/tags/item/beacon_payment_items.json
