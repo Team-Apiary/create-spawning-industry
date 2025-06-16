@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "spawningindustry:block/example_block"
+    }
+  }
+}
