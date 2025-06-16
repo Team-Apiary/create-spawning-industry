@@ -1,12 +1,12 @@
-package org.apiary.ui;
+package org.apiary.spawningindustry.ui;
 
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
-import org.apiary.items.SIItems;
-import org.apiary.main.SIConstants;
+import org.apiary.spawningindustry.items.SIItems;
+import org.apiary.spawningindustry.main.SIConstants;
 
 public class SICreativeTabs {
     // Deferred Register for creative tabs.

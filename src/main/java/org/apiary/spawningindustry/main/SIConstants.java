@@ -1,4 +1,4 @@
-package org.apiary.main;
+package org.apiary.spawningindustry.main;
 
 import org.slf4j.Logger;
 import com.mojang.logging.LogUtils;

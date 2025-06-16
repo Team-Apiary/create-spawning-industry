@@ -1,4 +1,4 @@
-package org.apiary.main;
+package org.apiary.spawningindustry.main;
 
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.IEventBus;
@@ -11,10 +11,10 @@ import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.server.ServerStartingEvent;
-import org.apiary.blocks.SIBlocks;
-import org.apiary.config.SIConfig;
-import org.apiary.items.SIItems;
-import org.apiary.ui.SICreativeTabs;
+import org.apiary.spawningindustry.blocks.SIBlocks;
+import org.apiary.spawningindustry.config.SIConfig;
+import org.apiary.spawningindustry.items.SIItems;
+import org.apiary.spawningindustry.ui.SICreativeTabs;
 
 @Mod(SIConstants.MODID)
 public class SpawningIndustry {

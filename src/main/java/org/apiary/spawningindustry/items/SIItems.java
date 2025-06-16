@@ -1,12 +1,12 @@
-package org.apiary.items;
+package org.apiary.spawningindustry.items;
 
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.food.FoodProperties;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
-import org.apiary.blocks.SIBlocks;
-import org.apiary.main.SIConstants;
+import org.apiary.spawningindustry.blocks.SIBlocks;
+import org.apiary.spawningindustry.main.SIConstants;
 
 public class SIItems {
     // Deferred Register for items.

@@ -1,11 +1,11 @@
-package org.apiary.blocks;
+package org.apiary.spawningindustry.blocks;
 
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.MapColor;
 import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredRegister;
-import org.apiary.main.SIConstants;
+import org.apiary.spawningindustry.main.SIConstants;
 
 public class SIBlocks {
     // Deferred Register for blocks under the mod's namespace.

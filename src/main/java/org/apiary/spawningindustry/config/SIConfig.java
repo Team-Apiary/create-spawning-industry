@@ -1,4 +1,4 @@
-package org.apiary.config;
+package org.apiary.spawningindustry.config;
 
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
@@ -7,7 +7,7 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.event.config.ModConfigEvent;
 import net.neoforged.neoforge.common.ModConfigSpec;
-import org.apiary.main.SIConstants;
+import org.apiary.spawningindustry.main.SIConstants;
 
 import java.util.List;
 import java.util.Set;
