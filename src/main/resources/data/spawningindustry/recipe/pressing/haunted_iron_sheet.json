@@ -1,0 +1,13 @@
+{
+  "type": "create:pressing",
+  "ingredients": [
+    {
+      "item": "spawningindustry:haunted_iron_ingot"
+    }
+  ],
+  "results": [
+    {
+      "id": "spawningindustry:haunted_iron_sheet"
+    }
+  ]
+}

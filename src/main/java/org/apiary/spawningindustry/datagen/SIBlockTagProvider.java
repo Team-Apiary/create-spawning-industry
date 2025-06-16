@@ -20,6 +20,5 @@ public class SIBlockTagProvider extends BlockTagsProvider {
     protected void addTags(HolderLookup.Provider provider) {
         tag(BlockTags.MINEABLE_WITH_PICKAXE)
                 .add(SIBlocks.EXAMPLE_BLOCK.get());
-
     }
 }

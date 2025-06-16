@@ -15,6 +15,9 @@ public class SIBlockStateProvider extends BlockStateProvider {
     @Override
     protected void registerStatesAndModels() {
         blockWithItem(SIBlocks.EXAMPLE_BLOCK);
+
+        //Haunted Iron Blocks
+        blockWithItem(SIBlocks.HAUNTED_IRON_BLOCK);
     }
 
     private  void blockWithItem(DeferredBlock<?> deferredBlock) {

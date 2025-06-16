@@ -23,6 +23,12 @@ public class SICreativeTabs {
                             .displayItems((parameters, output) -> {
                                 output.accept(SIItems.EXAMPLE_ITEM.get());
                                 output.accept(SIItems.EXAMPLE_BLOCK_ITEM.get());
+
+
+                                output.accept(SIItems.HAUNTED_IRON_INGOT.get());
+                                output.accept(SIItems.HAUNTED_IRON_NUGGET.get());
+                                output.accept(SIItems.HAUNTED_IRON_SHEET.get());
+                                output.accept(SIItems.HAUNTED_IRON_BLOCK_ITEM.get());
                             })
                             .build()
             );

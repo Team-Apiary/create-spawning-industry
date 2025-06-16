@@ -1,6 +1,7 @@
 package org.apiary.spawningindustry.blocks;
 
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.MapColor;
 import net.neoforged.neoforge.registries.DeferredBlock;
@@ -16,4 +17,8 @@ public class SIBlocks {
             "example_block",
             BlockBehaviour.Properties.of().mapColor(MapColor.STONE)
     );
+
+    //Haunted Iron Blocks
+    public static final DeferredBlock<Block> HAUNTED_IRON_BLOCK =
+            BLOCKS.registerSimpleBlock("haunted_iron_block", BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_CYAN));
 }

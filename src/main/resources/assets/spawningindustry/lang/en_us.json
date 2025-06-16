@@ -1,5 +1,11 @@
 {
   "itemGroup.spawningindustry": "Create: Spawning Industry",
+
   "block.spawningindustry.example_block": "Example Block",
-  "item.spawningindustry.example_item": "Example Item"
+  "item.spawningindustry.example_item": "Example Item",
+
+  "block.spawningindustry.haunted_iron_block": "Haunted Iron Block",
+  "item.spawningindustry.haunted_iron_ingot": "Haunted Iron Ingot",
+  "item.spawningindustry.haunted_iron_nugget": "Haunted Iron Nugget",
+  "item.spawningindustry.haunted_iron_sheet": "Haunted Iron Sheet"
 }
