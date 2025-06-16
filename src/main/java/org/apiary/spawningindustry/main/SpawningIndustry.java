@@ -32,7 +32,7 @@ public class SpawningIndustry {
         NeoForge.EVENT_BUS.register(this);
 
         // Register mod configuration.
-        modContainer.registerConfig(ModConfig.Type.COMMON, SIConfig.SPEC);
+        //modContainer.registerConfig(ModConfig.Type.COMMON, SIConfig.SPEC);
     }
 
     // Called during common setup phase.
