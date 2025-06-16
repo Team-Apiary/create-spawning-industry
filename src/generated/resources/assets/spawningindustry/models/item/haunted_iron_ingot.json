@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "spawningindustry:item/haunted_iron_ingot"
+  }
+}
