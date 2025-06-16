@@ -12,13 +12,7 @@ public class SIBlocks {
     // Deferred Register for blocks under the mod's namespace.
     public static final DeferredRegister.Blocks BLOCKS = DeferredRegister.createBlocks(SIConstants.MODID);
 
-    // Register an example block.
-    public static final DeferredBlock<Block> EXAMPLE_BLOCK = BLOCKS.registerSimpleBlock(
-            "example_block",
-            BlockBehaviour.Properties.of().mapColor(MapColor.STONE)
-    );
-
     //Haunted Iron Blocks
     public static final DeferredBlock<Block> HAUNTED_IRON_BLOCK =
-            BLOCKS.registerSimpleBlock("haunted_iron_block", BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_CYAN));
+            BLOCKS.registerSimpleBlock("haunted_iron_block", BlockBehaviour.Properties.ofFullCopy(Blocks.IRON_BLOCK).mapColor(MapColor.TERRACOTTA_CYAN));
 }

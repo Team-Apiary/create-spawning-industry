@@ -13,7 +13,6 @@ public class SIItemModelProvider extends ItemModelProvider {
 
     @Override
     protected void registerModels() {
-        basicItem(SIItems.EXAMPLE_ITEM.get());
 
         //Haunted Iron Items
         basicItem(SIItems.HAUNTED_IRON_INGOT.get());

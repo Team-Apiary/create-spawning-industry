@@ -19,12 +19,8 @@ public class SICreativeTabs {
                     CreativeModeTab.builder()
                             .title(Component.translatable("itemGroup.spawningindustry"))
                             .withTabsBefore(CreativeModeTabs.COMBAT)
-                            .icon(() -> SIItems.EXAMPLE_ITEM.get().getDefaultInstance())
+                            .icon(() -> SIItems.HAUNTED_IRON_INGOT.get().getDefaultInstance())
                             .displayItems((parameters, output) -> {
-                                output.accept(SIItems.EXAMPLE_ITEM.get());
-                                output.accept(SIItems.EXAMPLE_BLOCK_ITEM.get());
-
-
                                 output.accept(SIItems.HAUNTED_IRON_INGOT.get());
                                 output.accept(SIItems.HAUNTED_IRON_NUGGET.get());
                                 output.accept(SIItems.HAUNTED_IRON_SHEET.get());

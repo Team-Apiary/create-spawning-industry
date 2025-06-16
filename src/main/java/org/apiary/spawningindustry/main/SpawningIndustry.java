@@ -12,7 +12,6 @@ import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.server.ServerStartingEvent;
 import org.apiary.spawningindustry.blocks.SIBlocks;
-import org.apiary.spawningindustry.config.SIConfig;
 import org.apiary.spawningindustry.items.SIItems;
 import org.apiary.spawningindustry.ui.SICreativeTabs;
 

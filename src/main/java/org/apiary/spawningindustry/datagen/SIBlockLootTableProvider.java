@@ -17,12 +17,9 @@ public class SIBlockLootTableProvider extends BlockLootSubProvider {
 
     @Override
     protected void generate() {
-        add(SIBlocks.EXAMPLE_BLOCK.get(),
-                block -> noDrop());
 
         //Haunted Iron Blocks
-        add(SIBlocks.HAUNTED_IRON_BLOCK.get(),
-                block -> noDrop());
+        dropSelf(SIBlocks.HAUNTED_IRON_BLOCK.get());
     }
 
     @Override

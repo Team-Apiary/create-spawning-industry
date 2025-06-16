@@ -19,7 +19,7 @@ public class SIItemTagProvider extends ItemTagsProvider {
 
     @Override
     protected void addTags(HolderLookup.Provider provider) {
-        tag(Tags.Items.FOODS_COOKIE)
-                .add(SIItems.EXAMPLE_ITEM.get());
+        /*tag(Tags.Items.FOODS_COOKIE)
+                .add(SIItems.EXAMPLE_ITEM.get());*/
     }
 }
