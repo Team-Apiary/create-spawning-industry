@@ -5,7 +5,7 @@ import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
-import org.apiary.spawningindustry.items.SIItems;
+import org.apiary.spawningindustry.item.SIItems;
 import org.apiary.spawningindustry.main.SIConstants;
 
 public class SICreativeTabs {

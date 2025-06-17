@@ -9,7 +9,7 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
-import org.apiary.spawningindustry.items.SIItems;
+import org.apiary.spawningindustry.item.SIItems;
 import org.apiary.spawningindustry.main.SIConstants;
 import org.jetbrains.annotations.Nullable;
 

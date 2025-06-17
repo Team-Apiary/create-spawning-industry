@@ -1,4 +1,4 @@
-package org.apiary.spawningindustry.items;
+package org.apiary.spawningindustry.item;
 
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;

@@ -15,7 +15,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 import net.neoforged.neoforge.common.conditions.IConditionBuilder;
-import org.apiary.spawningindustry.items.SIItems;
+import org.apiary.spawningindustry.item.SIItems;
 import org.apiary.spawningindustry.main.SIConstants;
 
 import java.util.concurrent.CompletableFuture;

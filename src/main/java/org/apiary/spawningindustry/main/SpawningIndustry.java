@@ -16,7 +16,7 @@ import org.apiary.spawningindustry.block.SIBlocks;
 import org.apiary.spawningindustry.config.SIConfig;
 import org.apiary.spawningindustry.create.SIStressValues;
 import org.apiary.spawningindustry.entity.block.SIBlockEntities;
-import org.apiary.spawningindustry.items.SIItems;
+import org.apiary.spawningindustry.item.SIItems;
 import org.apiary.spawningindustry.ui.SICreativeTabs;
 
 import static org.apiary.spawningindustry.main.SIConstants.REGISTRATE;

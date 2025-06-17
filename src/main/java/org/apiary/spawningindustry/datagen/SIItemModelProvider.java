@@ -3,7 +3,7 @@ package org.apiary.spawningindustry.datagen;
 import net.minecraft.data.PackOutput;
 import net.neoforged.neoforge.client.model.generators.ItemModelProvider;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
-import org.apiary.spawningindustry.items.SIItems;
+import org.apiary.spawningindustry.item.SIItems;
 import org.apiary.spawningindustry.main.SIConstants;
 
 public class SIItemModelProvider extends ItemModelProvider {
