@@ -7,5 +7,7 @@
   "block.spawningindustry.haunted_iron_block": "Haunted Iron Block",
   "item.spawningindustry.haunted_iron_ingot": "Haunted Iron Ingot",
   "item.spawningindustry.haunted_iron_nugget": "Haunted Iron Nugget",
-  "item.spawningindustry.haunted_iron_sheet": "Haunted Iron Sheet"
+  "item.spawningindustry.haunted_iron_sheet": "Haunted Iron Sheet",
+
+  "tooltip.bound_to_soul": "Bound to the soul of a %s"
 }

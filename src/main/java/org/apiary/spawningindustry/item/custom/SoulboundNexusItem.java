@@ -1,18 +1,27 @@
 package org.apiary.spawningindustry.item.custom;
 
+import com.simibubi.create.content.kinetics.deployer.DeployerFakePlayer;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.context.UseOnContext;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.living.LivingDeathEvent;
+import org.apiary.spawningindustry.block.kinetic.MechanistSpawnerBlock;
 import org.apiary.spawningindustry.component.SIDataComponents;
+import org.apiary.spawningindustry.entity.block.kinetic.MechanistSpawnerBlockEntity;
 import org.apiary.spawningindustry.main.SIConstants;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
@@ -24,31 +33,53 @@ public class SoulboundNexusItem extends Item {
 
     @SubscribeEvent
     public static void onEntityHit(LivingDeathEvent event) {
-        // Ensure the source of damage is a player (or the appropriate attacker)
-        if (event.getSource().getEntity() instanceof Player player) {
-            // Retrieve the item in hand—for instance, the player's main hand item.
-            ItemStack weaponStack = player.getMainHandItem();
-
-            // Obtain the target entity's type as a ResourceLocation.
-            // (Use your preferred method to get the entity's identifier.
-            //  ForgeRegistries.ENTITY_TYPES.getKey(...) is common in many setups.)
+        if (event.getSource().getEntity() instanceof Player || event.getSource().getEntity() instanceof DeployerFakePlayer) {
+            // Save the entity type on the items's data component.
+            ItemStack weaponStack = event.getEntity().getMainHandItem();
             ResourceLocation entityTypeId = BuiltInRegistries.ENTITY_TYPE.getKey(event.getEntity().getType());
-
-            // Save the entity type on the weapon's data component.
             weaponStack.set(SIDataComponents.ENTITY_TYPE, entityTypeId);
         }
     }
 
     @Override
+    public @NotNull InteractionResult useOn(UseOnContext context) {
+        Level level = context.getLevel();
+        BlockPos pos = context.getClickedPos();
+        BlockState state = level.getBlockState(pos);
+
+        // Check if the clicked block is a Mechanist spawner, if so update the Bound Entity Type.
+        if (state.getBlock() instanceof MechanistSpawnerBlock<?>) {
+            if (!level.isClientSide()) {
+                var blockEntity = level.getBlockEntity(pos);
+                if (blockEntity instanceof MechanistSpawnerBlockEntity spawnerEntity) {
+                    ItemStack stack = context.getItemInHand();
+                    ResourceLocation entityTypeId = stack.get(SIDataComponents.ENTITY_TYPE);
+                    if (entityTypeId != null) {
+                        spawnerEntity.setEntityType(entityTypeId);
+                        spawnerEntity.clearPendingDrops();
+                        spawnerEntity.setChanged();
+                        level.sendBlockUpdated(pos, state, state, 3);
+                        SIConstants.LOGGER.info("Set " + entityTypeId + " to the spawner at " + spawnerEntity.getBlockPos() + " new value is " + spawnerEntity.getEntityType());
+                        return InteractionResult.SUCCESS;
+                    } else {
+                        if (context.getPlayer() != null) {
+                            context.getPlayer().displayClientMessage(Component.literal("This item has no entity type stored!"), true);
+                        }
+                        return InteractionResult.FAIL;
+                    }
+                }
+            }
+            return InteractionResult.SUCCESS;
+        }
+        return super.useOn(context);
+    }
+
+    @Override
     public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
-        // Retrieve the saved entity type (a ResourceLocation) from your component.
         ResourceLocation savedEntity = stack.get(SIDataComponents.ENTITY_TYPE);
         if (savedEntity != null) {
-            // Look up the EntityType using the built-in registry.
             EntityType<?> entityType = BuiltInRegistries.ENTITY_TYPE.get(savedEntity);
-            // Get the translation key (usually something like "entity.minecraft.zombie")
-            // and create a translatable component so that it pulls the proper language string.
-            tooltipComponents.add(Component.translatable(entityType.getDescriptionId()));
+            tooltipComponents.add(Component.translatable("tooltip.bound_to_soul", Component.translatable(entityType.getDescriptionId())));
         }
         super.appendHoverText(stack, context, tooltipComponents, tooltipFlag);
     }
