@@ -1,65 +1,54 @@
-/*
+
 package org.apiary.spawningindustry.config;
 
-import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.Item;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.event.config.ModConfigEvent;
 import net.neoforged.neoforge.common.ModConfigSpec;
 import org.apiary.spawningindustry.main.SIConstants;
 
-import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
-
 @EventBusSubscriber(modid = SIConstants.MODID, bus = EventBusSubscriber.Bus.MOD)
 public class SIConfig {
     private static final ModConfigSpec.Builder BUILDER = new ModConfigSpec.Builder();
 
-    private static final ModConfigSpec.BooleanValue LOG_DIRT_BLOCK = BUILDER
-            .comment("Whether to log the dirt block on common setup")
-            .define("logDirtBlock", true);
+    private static final ModConfigSpec.BooleanValue GENERATE_XP = BUILDER
+            .comment("Enable XP Output from Mechanist Spawners? (Default: True)")
+            .define("generateXP", true);
 
-    private static final ModConfigSpec.IntValue MAGIC_NUMBER = BUILDER
-            .comment("A magic number")
-            .defineInRange("magicNumber", 42, 0, Integer.MAX_VALUE);
+    private static final ModConfigSpec.IntValue BRASS_SPAWNER_STRESS = BUILDER
+            .comment("Brass Mechanist Spawner: Stress on mechanical system. (Higher = Harder to run)")
+            .defineInRange("brassSpawnerStress", 32, 0, Integer.MAX_VALUE);
 
-    public static final ModConfigSpec.ConfigValue<String> MAGIC_NUMBER_INTRODUCTION = BUILDER
-            .comment("What you want the introduction message to be for the magic number")
-            .define("magicNumberIntroduction", "The magic number is... ");
+    private static final ModConfigSpec.IntValue BRASS_SPAWNER_WORK = BUILDER
+            .comment("Brass Mechanist Spawner: Work needed for one set of items to be generated. (Higher = Slower)")
+            .defineInRange("brassSpawnerWork", 1024, 0, Integer.MAX_VALUE);
 
-    // a list of strings that are treated as resource locations for items
-    private static final ModConfigSpec.ConfigValue<List<String>> ITEM_STRINGS = BUILDER
-            .comment("A list of items to log on common setup.")
-            .define("items", List.of("minecraft:iron_ingot"));
+    private static final ModConfigSpec.IntValue ANDESITE_SPAWNER_STRESS = BUILDER
+            .comment("Andesite Mechanist Spawner: Stress on mechanical system. (Higher = Harder to run)")
+            .defineInRange("andesiteSpawnerStress", 8, 0, Integer.MAX_VALUE);
 
-
-
+    private static final ModConfigSpec.IntValue ANDESITE_SPAWNER_WORK = BUILDER
+            .comment("Andesite Mechanist Spawner: Work needed for one set of items to be generated. (Higher = Slower)")
+            .defineInRange("andesiteSpawnerWork", 4096, 0, Integer.MAX_VALUE);
 
     public static final ModConfigSpec SPEC = BUILDER.build();
 
-    public static boolean logDirtBlock;
-    public static int magicNumber;
-    public static String magicNumberIntroduction;
-    public static Set<Item> items;
-
-    private static boolean validateItemName(final Object obj) {
-        return obj instanceof String itemName &&
-                BuiltInRegistries.ITEM.containsKey(ResourceLocation.parse(itemName));
-    }
+    public static boolean generateXP;
+    public static int brassSpawnerStress;
+    public static int brassSpawnerWork;
+    public static int andesiteSpawnerStress;
+    public static int andesiteSpawnerWork;
 
     @SubscribeEvent
     static void onLoad(final ModConfigEvent event) {
-        logDirtBlock = LOG_DIRT_BLOCK.get();
-        magicNumber = MAGIC_NUMBER.get();
-        magicNumberIntroduction = MAGIC_NUMBER_INTRODUCTION.get();
-
-        // Convert the list of strings into a set of items.
-        items = ITEM_STRINGS.get().stream()
-                .map(itemName -> BuiltInRegistries.ITEM.get(ResourceLocation.parse(itemName)))
-                .collect(Collectors.toSet());
+        try {
+            generateXP = GENERATE_XP.get();
+            brassSpawnerStress = BRASS_SPAWNER_STRESS.get();
+            brassSpawnerWork = BRASS_SPAWNER_WORK.get();
+            andesiteSpawnerStress = ANDESITE_SPAWNER_STRESS.get();
+            andesiteSpawnerWork = ANDESITE_SPAWNER_WORK.get();
+        } catch (Exception e) {
+            SIConstants.LOGGER.error("Failed to load config: {}. Please check your config file as it is invalid.", e.getMessage());
+        }
     }
 }
-*/
