@@ -25,6 +25,8 @@ public class SICreativeTabs {
                                 output.accept(SIItems.HAUNTED_IRON_NUGGET.get());
                                 output.accept(SIItems.HAUNTED_IRON_SHEET.get());
                                 output.accept(SIItems.HAUNTED_IRON_BLOCK_ITEM.get());
+                                output.accept(SIItems.BRASS_MECHANIST_SPAWNER_BLOCK_ITEM.get());
+                                output.accept(SIItems.ANDESITE_MECHANIST_SPAWNER_BLOCK_ITEM.get());
                             })
                             .build()
             );

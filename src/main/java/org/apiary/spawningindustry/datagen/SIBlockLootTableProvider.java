@@ -5,7 +5,7 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.data.loot.BlockLootSubProvider;
 import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.level.block.Block;
-import org.apiary.spawningindustry.blocks.SIBlocks;
+import org.apiary.spawningindustry.block.SIBlocks;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Set;
@@ -20,6 +20,8 @@ public class SIBlockLootTableProvider extends BlockLootSubProvider {
 
         //Haunted Iron Blocks
         dropSelf(SIBlocks.HAUNTED_IRON_BLOCK.get());
+        dropSelf(SIBlocks.ANDESITE_MECHANIST_SPAWNER_BLOCK.get());
+        dropSelf(SIBlocks.BRASS_MECHANIST_SPAWNER_BLOCK.get());
     }
 
     @Override

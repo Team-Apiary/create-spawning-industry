@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "spawningindustry:block/andesite_mechanist_spawner"
+  }
+}

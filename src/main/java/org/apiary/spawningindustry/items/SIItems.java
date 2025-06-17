@@ -4,7 +4,7 @@ import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
-import org.apiary.spawningindustry.blocks.SIBlocks;
+import org.apiary.spawningindustry.block.SIBlocks;
 import org.apiary.spawningindustry.main.SIConstants;
 
 public class SIItems {
@@ -24,4 +24,10 @@ public class SIItems {
     //Haunted Iron Block Items
     public static final DeferredItem<BlockItem> HAUNTED_IRON_BLOCK_ITEM =
             ITEMS.registerSimpleBlockItem("haunted_iron_block", SIBlocks.HAUNTED_IRON_BLOCK);
+
+    // Mechanist Spawner Block Items
+    public static final DeferredItem<BlockItem> ANDESITE_MECHANIST_SPAWNER_BLOCK_ITEM =
+            ITEMS.registerSimpleBlockItem("andesite_mechanist_spawner", SIBlocks.ANDESITE_MECHANIST_SPAWNER_BLOCK);
+    public static final DeferredItem<BlockItem> BRASS_MECHANIST_SPAWNER_BLOCK_ITEM =
+            ITEMS.registerSimpleBlockItem("brass_mechanist_spawner", SIBlocks.BRASS_MECHANIST_SPAWNER_BLOCK);
 }

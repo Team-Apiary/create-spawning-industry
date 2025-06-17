@@ -1,2 +1,4 @@
-// 1.21.1	2025-06-16T19:25:25.530201395	Loot Tables
+// 1.21.1	2025-06-17T11:08:51.145511711	Loot Tables
+dc47536e2b87ee2a6447a145e77cffb4c7ebcd02 data/spawningindustry/loot_table/blocks/andesite_mechanist_spawner.json
+56e2c80abf102c4e53efbf4461e78df72796a1ac data/spawningindustry/loot_table/blocks/brass_mechanist_spawner.json
 64a8306990d99b70d88d75a48544262433505848 data/spawningindustry/loot_table/blocks/haunted_iron_block.json

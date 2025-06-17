@@ -17,7 +17,7 @@ public class SIConfig {
 
     private static final ModConfigSpec.IntValue BRASS_SPAWNER_STRESS = BUILDER
             .comment("Brass Mechanist Spawner: Stress on mechanical system. (Higher = Harder to run)")
-            .defineInRange("brassSpawnerStress", 32, 0, Integer.MAX_VALUE);
+            .defineInRange("brassSpawnerStress", 256, 0, Integer.MAX_VALUE);
 
     private static final ModConfigSpec.IntValue BRASS_SPAWNER_WORK = BUILDER
             .comment("Brass Mechanist Spawner: Work needed for one set of items to be generated. (Higher = Slower)")
@@ -25,11 +25,11 @@ public class SIConfig {
 
     private static final ModConfigSpec.IntValue ANDESITE_SPAWNER_STRESS = BUILDER
             .comment("Andesite Mechanist Spawner: Stress on mechanical system. (Higher = Harder to run)")
-            .defineInRange("andesiteSpawnerStress", 8, 0, Integer.MAX_VALUE);
+            .defineInRange("andesiteSpawnerStress", 64, 0, Integer.MAX_VALUE);
 
     private static final ModConfigSpec.IntValue ANDESITE_SPAWNER_WORK = BUILDER
             .comment("Andesite Mechanist Spawner: Work needed for one set of items to be generated. (Higher = Slower)")
-            .defineInRange("andesiteSpawnerWork", 4096, 0, Integer.MAX_VALUE);
+            .defineInRange("andesiteSpawnerWork", 8192, 0, Integer.MAX_VALUE);
 
     public static final ModConfigSpec SPEC = BUILDER.build();
 
