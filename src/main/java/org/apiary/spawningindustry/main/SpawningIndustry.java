@@ -13,6 +13,7 @@ import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.server.ServerStartingEvent;
 import org.apiary.spawningindustry.block.SIBlocks;
+import org.apiary.spawningindustry.component.SIDataComponents;
 import org.apiary.spawningindustry.config.SIConfig;
 import org.apiary.spawningindustry.create.SIStressValues;
 import org.apiary.spawningindustry.entity.block.SIBlockEntities;
@@ -33,6 +34,7 @@ public class SpawningIndustry {
         SIItems.ITEMS.register(modEventBus);
         SICreativeTabs.CREATIVE_MODE_TABS.register(modEventBus);
         SIBlockEntities.load();
+        SIDataComponents.register(modEventBus);
 
         // Add common setup listener.
         modEventBus.addListener(this::commonSetup);

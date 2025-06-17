@@ -18,5 +18,6 @@ public class SIItemModelProvider extends ItemModelProvider {
         basicItem(SIItems.HAUNTED_IRON_INGOT.get());
         basicItem(SIItems.HAUNTED_IRON_NUGGET.get());
         basicItem(SIItems.HAUNTED_IRON_SHEET.get());
+        basicItem(SIItems.SOULBOUND_NEXUS.get());
     }
 }

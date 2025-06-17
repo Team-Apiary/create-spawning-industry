@@ -2,9 +2,15 @@ package org.apiary.spawningindustry.item;
 
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.material.MapColor;
+import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import org.apiary.spawningindustry.block.SIBlocks;
+import org.apiary.spawningindustry.block.kinetic.AndesiteMechanistSpawnerBlock;
+import org.apiary.spawningindustry.item.custom.SoulboundNexusItem;
 import org.apiary.spawningindustry.main.SIConstants;
 
 public class SIItems {
@@ -19,6 +25,11 @@ public class SIItems {
             ITEMS.registerSimpleItem("haunted_iron_nugget", new Item.Properties());
     public static final DeferredItem<Item> HAUNTED_IRON_SHEET =
             ITEMS.registerSimpleItem("haunted_iron_sheet", new Item.Properties());
+
+
+    public static final DeferredHolder<Item, SoulboundNexusItem> SOULBOUND_NEXUS =
+            ITEMS.register("soulbound_nexus",  () -> new SoulboundNexusItem(new Item.Properties()));
+
 
     //Block Items
     //Haunted Iron Block Items
