@@ -1,6 +1,0 @@
-{
-  "parent": "minecraft:block/cube_all",
-  "textures": {
-    "all": "spawningindustry:block/brass_mechanist_spawner"
-  }
-}

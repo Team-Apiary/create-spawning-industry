@@ -3,6 +3,7 @@ package org.apiary.spawningindustry.entity.block;
 import com.simibubi.create.foundation.data.CreateRegistrate;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
+import org.apiary.spawningindustry.client.render.BrassMechanistSpawnerRenderer;
 import org.apiary.spawningindustry.entity.block.kinetic.AndesiteMechanistSpawnerBlockEntity;
 import org.apiary.spawningindustry.entity.block.kinetic.BrassMechanistSpawnerBlockEntity;
 import org.apiary.spawningindustry.entity.block.kinetic.MechanistSpawnerBlockEntity;
@@ -24,6 +25,7 @@ public class SIBlockEntities {
     public static final BlockEntityEntry<BrassMechanistSpawnerBlockEntity> BRASS_MECHANIST_SPAWNER_BE = REGISTRATE
             .blockEntity("brass_mechanist_spawner", BrassMechanistSpawnerBlockEntity::new)
             .validBlocks(SIBlocks.BRASS_MECHANIST_SPAWNER_BLOCK::get)
+            .renderer(() -> BrassMechanistSpawnerRenderer::new)
             .register();
 
     public static void load() {

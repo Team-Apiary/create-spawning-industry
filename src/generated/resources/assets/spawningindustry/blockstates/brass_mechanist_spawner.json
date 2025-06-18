@@ -1,6 +1,15 @@
 {
   "variants": {
-    "": {
+    "facing=east": {
+      "model": "spawningindustry:block/brass_mechanist_spawner"
+    },
+    "facing=north": {
+      "model": "spawningindustry:block/brass_mechanist_spawner"
+    },
+    "facing=south": {
+      "model": "spawningindustry:block/brass_mechanist_spawner"
+    },
+    "facing=west": {
       "model": "spawningindustry:block/brass_mechanist_spawner"
     }
   }

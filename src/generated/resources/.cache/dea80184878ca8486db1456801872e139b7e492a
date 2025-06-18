@@ -1,9 +1,8 @@
-// 1.21.1	2025-06-17T11:15:45.42100088	Block States: spawningindustry
+// 1.21.1	2025-06-18T18:13:06.374261085	Block States: spawningindustry
 d442b7364a86ea7bae9662937cd421c282b27711 assets/spawningindustry/blockstates/andesite_mechanist_spawner.json
-1bcaf992f5f2ffb1e0b8e09f1b6739444d7d458b assets/spawningindustry/blockstates/brass_mechanist_spawner.json
+18ec64b21b556fbc4fadc38a019e4013bb29adf7 assets/spawningindustry/blockstates/brass_mechanist_spawner.json
 e6c1f697f066ec3e6e3e15440dcb84ec7aab1bc0 assets/spawningindustry/blockstates/haunted_iron_block.json
 a611b0cc8253b83eca3035d1303f75624ff5755f assets/spawningindustry/models/block/andesite_mechanist_spawner.json
-73811cd69cb8814989436b1f3b432f16dcc65ae0 assets/spawningindustry/models/block/brass_mechanist_spawner.json
 9c23ad0bcad481e638c64d00b3dc13f9a9521855 assets/spawningindustry/models/block/haunted_iron_block.json
 2e05f7b3b66c23031911aaa9ba67b689101c30ed assets/spawningindustry/models/item/andesite_mechanist_spawner.json
 88e6d4b816b260c634f020a1760e196b69fe6be7 assets/spawningindustry/models/item/brass_mechanist_spawner.json
