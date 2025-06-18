@@ -18,12 +18,14 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageType;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.loot.LootParams;
@@ -31,6 +33,7 @@ import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.phys.Vec3;
+import net.neoforged.neoforge.common.util.FakePlayerFactory;
 import net.neoforged.neoforge.items.IItemHandler;
 import net.neoforged.neoforge.items.ItemStackHandler;
 import org.apiary.spawningindustry.main.SIConstants;
@@ -134,6 +137,11 @@ public class MechanistSpawnerBlockEntity extends KineticBlockEntity implements I
         List<ItemStack> drops = identifyDrops((ServerLevel) this.getLevel(), boundEntityType, this.getBlockPos());
         pendingDrops.addAll(drops);
 
+        SIConstants.LOGGER.info("Loot table roll returned {} items:", drops.size());
+        for (ItemStack stack : drops) {
+            SIConstants.LOGGER.info(" -> {}", stack);
+        }
+
         if (itemHandler.getStackInSlot(0).isEmpty() && !pendingDrops.isEmpty()) {
             while (!pendingDrops.isEmpty() && pendingDrops.peek().isEmpty()) {
                 pendingDrops.poll();
@@ -141,7 +149,6 @@ public class MechanistSpawnerBlockEntity extends KineticBlockEntity implements I
             if (!pendingDrops.isEmpty()) {
                 ItemStack nextDrop = pendingDrops.poll();
                 itemHandler.setStackInSlot(0, nextDrop);
-                SIConstants.LOGGER.info("Dispensing drop: {} x{}", nextDrop.getItem().getDescriptionId(), nextDrop.getCount());
             }
         }
 
@@ -153,7 +160,7 @@ public class MechanistSpawnerBlockEntity extends KineticBlockEntity implements I
 
     private static List<ItemStack> identifyDrops(ServerLevel level, ResourceLocation entityTypeRL, BlockPos spawnerPos) {
 
-        // Identify what the drops should be based on the entity's type and use a minimal dummy entity to trigger the random loot table roll.
+        // Identify what the drops should be based on the entity's type and use a minimal player dummy entity to trigger the random loot table roll.
         EntityType<?> entityType = BuiltInRegistries.ENTITY_TYPE.get(entityTypeRL);
         ResourceKey<LootTable> lootTableKey = entityType.getDefaultLootTable();
         LootTable lootTable = level.getServer().reloadableRegistries().getLootTable(lootTableKey);
@@ -164,21 +171,27 @@ public class MechanistSpawnerBlockEntity extends KineticBlockEntity implements I
         }
         dummyEntity.setPos(spawnerPos.getX(), spawnerPos.getY(), spawnerPos.getZ());
 
-        ResourceLocation genericRL = ResourceLocation.tryParse("minecraft:generic");
-        if (genericRL == null) {
-            throw new IllegalStateException("Unable to parse generic damage type resource location.");
+        ResourceLocation playerRL = ResourceLocation.tryParse("minecraft:player_attack");
+        if (playerRL == null) {
+            throw new IllegalStateException("Unable to parse player damage type resource location.");
         }
-        Holder<DamageType> genericHolder = level.registryAccess()
+        Holder<DamageType> playerHolder = level.registryAccess()
                 .registryOrThrow(Registries.DAMAGE_TYPE)
-                .getHolder(ResourceKey.create(Registries.DAMAGE_TYPE, genericRL))
-                .orElseThrow(() -> new IllegalStateException("Generic DamageType not found"));
+                .getHolder(ResourceKey.create(Registries.DAMAGE_TYPE, playerRL))
+                .orElseThrow(() -> new IllegalStateException("Player DamageType not found"));
 
-        DamageSource genericDamageSource = new DamageSource(genericHolder);
+        DamageSource playerDamageSource = new DamageSource(playerHolder);
+
+        ItemStack dummyItem = new ItemStack(Items.DIAMOND_SWORD);
+
+        ServerPlayer fakePlayer = FakePlayerFactory.getMinecraft(level);
 
         LootParams lootParams = new LootParams.Builder(level)
                 .withParameter(LootContextParams.ORIGIN, Vec3.atCenterOf(spawnerPos))
                 .withParameter(LootContextParams.THIS_ENTITY, dummyEntity)
-                .withParameter(LootContextParams.DAMAGE_SOURCE, genericDamageSource)
+                .withParameter(LootContextParams.DAMAGE_SOURCE, playerDamageSource)
+                .withParameter(LootContextParams.LAST_DAMAGE_PLAYER, fakePlayer)
+                .withParameter(LootContextParams.TOOL, dummyItem)
                 .create(LootContextParamSets.ENTITY);
 
         return lootTable.getRandomItems(lootParams);
