@@ -199,19 +199,18 @@ public abstract class MechanistSpawnerBlockEntity extends KineticBlockEntity imp
     }
 
     private List<ItemStack> patchDrops(List<ItemStack> originalDrops, EntityType<?> mobType) {
-        // Create a new list based on the original drops.
+        // Add patches to the drops list for certain entities that need it.
         List<ItemStack> patchedDrops = new ArrayList<>(originalDrops);
 
-        // Example patch for sheep: add extra wool if the mob type is sheep.
         if (mobType.equals(EntityType.SHEEP)) {
-            int woolAmount = new Random().nextInt(3); // Generates a random number between 0 and 2 inclusive.
+            int woolAmount = new Random().nextInt(3);
             patchedDrops.add(new ItemStack(Items.WHITE_WOOL, woolAmount));
         }
 
         return patchedDrops;
     }
 
-    //This method exists to be overriden by the two different spawners
+    //This method exists to be overridden by the two different spawners.
     protected List<ItemStack> handleXP(List<ItemStack> originalDrops) {
         return originalDrops;
     }
