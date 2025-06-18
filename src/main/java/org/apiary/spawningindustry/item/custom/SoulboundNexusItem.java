@@ -58,6 +58,7 @@ public class SoulboundNexusItem extends Item {
                         spawnerEntity.setEntityType(entityTypeId);
                         spawnerEntity.clearPendingDrops();
                         spawnerEntity.setChanged();
+                        stack.shrink(1);
                         level.sendBlockUpdated(pos, state, state, 3);
                         SIConstants.LOGGER.info("Set " + entityTypeId + " to the spawner at " + spawnerEntity.getBlockPos() + " new value is " + spawnerEntity.getEntityType());
                         return InteractionResult.SUCCESS;
