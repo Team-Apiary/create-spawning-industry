@@ -117,8 +117,10 @@ public class MechanistSpawnerBlockEntity extends KineticBlockEntity {
 
         // Once sufficient work has been done, generate drops.
         if (progress >= getWorkRequired()) {
-            produceMobDrops();
-            progress = 0;
+            if (boundEntityType != null) {
+                produceMobDrops();
+                progress = 0;
+            }
         }
     }
 
