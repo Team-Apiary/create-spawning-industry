@@ -42,7 +42,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
 
-public class MechanistSpawnerBlockEntity extends KineticBlockEntity implements IHaveGoggleInformation {
+public abstract class MechanistSpawnerBlockEntity extends KineticBlockEntity implements IHaveGoggleInformation {
 
     protected final ItemStackHandler itemHandler = createOutputHandler();
     private static final int INVENTORY_SIZE = 3;
@@ -135,6 +135,7 @@ public class MechanistSpawnerBlockEntity extends KineticBlockEntity implements I
         List<ItemStack> drops = identifyDrops((ServerLevel) this.getLevel(), boundEntityType, this.getBlockPos());
         EntityType<?> mobType = BuiltInRegistries.ENTITY_TYPE.get(boundEntityType);
         drops = patchDrops(drops, mobType);
+        drops = handleXP(drops);
         pendingDrops.addAll(drops);
 
         SIConstants.LOGGER.info("Loot table roll returned {} items:", drops.size());
@@ -208,6 +209,11 @@ public class MechanistSpawnerBlockEntity extends KineticBlockEntity implements I
         }
 
         return patchedDrops;
+    }
+
+    //This method exists to be overriden by the two different spawners
+    protected List<ItemStack> handleXP(List<ItemStack> originalDrops) {
+        return originalDrops;
     }
 
     public void clearPendingDrops() {
