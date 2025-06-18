@@ -1,6 +1,10 @@
 package org.apiary.spawningindustry.entity.block.kinetic;
 
+import com.simibubi.create.api.equipment.goggles.IHaveGoggleInformation;
+import com.simibubi.create.content.kinetics.base.IRotate;
 import com.simibubi.create.content.kinetics.base.KineticBlockEntity;
+import com.simibubi.create.foundation.utility.CreateLang;
+import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Direction.Axis;
@@ -10,9 +14,11 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageType;
 import net.minecraft.world.entity.Entity;
@@ -27,6 +33,7 @@ import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.items.IItemHandler;
 import net.neoforged.neoforge.items.ItemStackHandler;
+import org.apiary.spawningindustry.item.custom.SoulboundNexusItem;
 import org.apiary.spawningindustry.main.SIConstants;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -35,7 +42,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
-public class MechanistSpawnerBlockEntity extends KineticBlockEntity {
+public class MechanistSpawnerBlockEntity extends KineticBlockEntity implements IHaveGoggleInformation {
 
     protected final ItemStackHandler itemHandler = createOutputHandler();
     private static final int INVENTORY_SIZE = 3;
@@ -189,6 +196,63 @@ public class MechanistSpawnerBlockEntity extends KineticBlockEntity {
     public ResourceLocation getEntityType() {
         return this.boundEntityType;
     }
+
+    @Override
+    public boolean addToGoggleTooltip(List<Component> tooltip, boolean isPlayerSneaking) {
+        // 1. Header – display "Spawner Stats" (translation key remains unchanged) in white.
+        CreateLang.translate("gui.goggles.spawner_stats").forGoggles(tooltip);
+
+        // Use an indent level matching the parent's kinetic stat details.
+        int customIndent = 1;
+
+        // 2. Soulbound Nexus status and Bound Soul information.
+        if (soulboundNexusInserted()) {
+            // Display the Nexus insertion status: "Soulbound Nexus: " in light gray followed by "Inserted" in green.
+            CreateLang.builder()
+                    .add(Component.literal("Soulbound Nexus: ").withStyle(ChatFormatting.GRAY))
+                    .add(Component.literal("Inserted").withStyle(ChatFormatting.GREEN))
+                    .forGoggles(tooltip, customIndent);
+            // When a nexus is inserted, add the bound soul line if a mob is bound.
+            if (boundEntityType != null) {
+                EntityType<?> entityType = BuiltInRegistries.ENTITY_TYPE.get(boundEntityType);
+                if (entityType != null) {
+                    CreateLang.builder()
+                            .add(Component.literal("Bound Soul: ").withStyle(ChatFormatting.GRAY))
+                            .add(Component.translatable(entityType.getDescriptionId()).withStyle(ChatFormatting.AQUA))
+                            .forGoggles(tooltip, customIndent);
+                }
+            }
+        } else {
+            // When no nexus is inserted.
+            CreateLang.builder()
+                    .add(Component.literal("Soulbound Nexus: Not Inserted").withStyle(ChatFormatting.RED))
+                    .forGoggles(tooltip, customIndent);
+        }
+
+        // 3. Add a blank line before kinetic (stress) stats.
+        tooltip.add(Component.empty());
+
+        // 4. Append kinetic (stress) stats exactly as before.
+        if (IRotate.StressImpact.isEnabled()) {
+            float stressAtBase = calculateStressApplied();
+            if (!Mth.equal(stressAtBase, 0)) {
+                addStressImpactStats(tooltip, stressAtBase);
+            }
+        }
+
+        return true;
+    }
+
+    /**
+     * Helper method checking if a Soulbound Nexus is inserted.
+     * Adjust this function as necessary based on how you designate the nexus slot.
+     */
+    private boolean soulboundNexusInserted() {
+        ItemStack nexusStack = itemHandler.getStackInSlot(1);
+        return !nexusStack.isEmpty() && nexusStack.getItem() instanceof SoulboundNexusItem;
+    }
+
+
 
     @Override
     protected void write(CompoundTag compound, HolderLookup.Provider registries, boolean clientPacket) {
