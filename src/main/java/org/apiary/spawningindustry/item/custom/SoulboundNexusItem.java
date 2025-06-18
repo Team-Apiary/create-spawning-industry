@@ -34,8 +34,7 @@ public class SoulboundNexusItem extends Item {
     @SubscribeEvent
     public static void onEntityHit(LivingDeathEvent event) {
         if (event.getSource().getEntity() instanceof Player || event.getSource().getEntity() instanceof DeployerFakePlayer) {
-            // Save the entity type on the items's data component.
-            ItemStack weaponStack = event.getEntity().getMainHandItem();
+            ItemStack weaponStack = event.getSource().getEntity().getWeaponItem();
             ResourceLocation entityTypeId = BuiltInRegistries.ENTITY_TYPE.getKey(event.getEntity().getType());
             weaponStack.set(SIDataComponents.ENTITY_TYPE, entityTypeId);
         }
