@@ -214,7 +214,8 @@ public class MechanistSpawnerBlockEntity extends KineticBlockEntity implements I
                     .forGoggles(tooltip, 1);
         } else {
             CreateLang.builder()
-                    .add(Component.literal("Soulbound Nexus: Not Inserted").withStyle(ChatFormatting.RED))
+                    .add(Component.literal("Soulbound Nexus: ").withStyle(ChatFormatting.GRAY))
+                    .add(Component.literal("Not Inserted").withStyle(ChatFormatting.RED))
                     .forGoggles(tooltip, 1);
         }
 

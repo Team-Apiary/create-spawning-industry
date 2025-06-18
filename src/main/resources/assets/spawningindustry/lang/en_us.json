@@ -12,12 +12,6 @@
   "item.spawningindustry.haunted_iron_sheet": "Haunted Iron Sheet",
 
   "tooltip.bound_to_soul": "Bound to the soul of a %s",
-
-  "tooltip.mechanist_spawner.bound_mob": "Bound to the soul of a %s",
-  "tooltip.mechanist_spawner.bound_mob.none": "Not bound to any soul",
-  "tooltip.mechanist_spawner.produced_drops": "Produces these items:",
-  "tooltip.mechanist_spawner.drop_item": "- %d x %s",
-  "tooltip.mechanist_spawner.produced_drops.none": "Produces nothing",
   "create.gui.goggles.spawner_stats": "Spawner Stats:"
 
 }
