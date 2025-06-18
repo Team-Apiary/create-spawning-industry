@@ -33,7 +33,6 @@ import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.items.IItemHandler;
 import net.neoforged.neoforge.items.ItemStackHandler;
-import org.apiary.spawningindustry.item.custom.SoulboundNexusItem;
 import org.apiary.spawningindustry.main.SIConstants;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -199,40 +198,30 @@ public class MechanistSpawnerBlockEntity extends KineticBlockEntity implements I
 
     @Override
     public boolean addToGoggleTooltip(List<Component> tooltip, boolean isPlayerSneaking) {
-        // 1. Header – display "Spawner Stats" (translation key remains unchanged) in white.
+        // Display Header.
         CreateLang.translate("gui.goggles.spawner_stats").forGoggles(tooltip);
 
-        // Use an indent level matching the parent's kinetic stat details.
-        int customIndent = 1;
-
-        // 2. Soulbound Nexus status and Bound Soul information.
-        if (soulboundNexusInserted()) {
-            // Display the Nexus insertion status: "Soulbound Nexus: " in light gray followed by "Inserted" in green.
+        // Display Soulbound Nexus status and Bound Soul information.
+        if (boundEntityType != null) {
             CreateLang.builder()
                     .add(Component.literal("Soulbound Nexus: ").withStyle(ChatFormatting.GRAY))
                     .add(Component.literal("Inserted").withStyle(ChatFormatting.GREEN))
-                    .forGoggles(tooltip, customIndent);
-            // When a nexus is inserted, add the bound soul line if a mob is bound.
-            if (boundEntityType != null) {
-                EntityType<?> entityType = BuiltInRegistries.ENTITY_TYPE.get(boundEntityType);
-                if (entityType != null) {
-                    CreateLang.builder()
-                            .add(Component.literal("Bound Soul: ").withStyle(ChatFormatting.GRAY))
-                            .add(Component.translatable(entityType.getDescriptionId()).withStyle(ChatFormatting.AQUA))
-                            .forGoggles(tooltip, customIndent);
-                }
-            }
+                    .forGoggles(tooltip, 1);
+            EntityType<?> entityType = BuiltInRegistries.ENTITY_TYPE.get(boundEntityType);
+            CreateLang.builder()
+                    .add(Component.literal("Bound Soul: ").withStyle(ChatFormatting.GRAY))
+                    .add(Component.translatable(entityType.getDescriptionId()).withStyle(ChatFormatting.AQUA))
+                    .forGoggles(tooltip, 1);
         } else {
-            // When no nexus is inserted.
             CreateLang.builder()
                     .add(Component.literal("Soulbound Nexus: Not Inserted").withStyle(ChatFormatting.RED))
-                    .forGoggles(tooltip, customIndent);
+                    .forGoggles(tooltip, 1);
         }
 
-        // 3. Add a blank line before kinetic (stress) stats.
+        // Blank line.
         tooltip.add(Component.empty());
 
-        // 4. Append kinetic (stress) stats exactly as before.
+        // Display Kinetic Stats.
         if (IRotate.StressImpact.isEnabled()) {
             float stressAtBase = calculateStressApplied();
             if (!Mth.equal(stressAtBase, 0)) {
@@ -242,17 +231,6 @@ public class MechanistSpawnerBlockEntity extends KineticBlockEntity implements I
 
         return true;
     }
-
-    /**
-     * Helper method checking if a Soulbound Nexus is inserted.
-     * Adjust this function as necessary based on how you designate the nexus slot.
-     */
-    private boolean soulboundNexusInserted() {
-        ItemStack nexusStack = itemHandler.getStackInSlot(1);
-        return !nexusStack.isEmpty() && nexusStack.getItem() instanceof SoulboundNexusItem;
-    }
-
-
 
     @Override
     protected void write(CompoundTag compound, HolderLookup.Provider registries, boolean clientPacket) {
@@ -264,6 +242,8 @@ public class MechanistSpawnerBlockEntity extends KineticBlockEntity implements I
 
         if (this.boundEntityType != null) {
             compound.putString("EntityType", this.boundEntityType.toString());
+        } else {
+            compound.remove("EntityType");
         }
 
         super.write(compound, registries, clientPacket);
@@ -279,9 +259,9 @@ public class MechanistSpawnerBlockEntity extends KineticBlockEntity implements I
 
         if (compound.contains("EntityType", Tag.TAG_STRING)) {
             this.boundEntityType = ResourceLocation.tryParse(compound.getString("EntityType"));
+        } else {
+            this.boundEntityType = null;
         }
-
         super.read(compound, registries, clientPacket);
     }
-
 }
