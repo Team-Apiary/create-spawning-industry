@@ -1,13 +1,23 @@
 {
   "itemGroup.spawningindustry": "Create: Spawning Industry",
 
-  "block.spawningindustry.example_block": "Example Block",
-  "item.spawningindustry.example_item": "Example Item",
+  "block.spawningindustry.brass_mechanist_spawner": "Brass Mechanist Spawner",
+  "block.spawningindustry.andesite_mechanist_spawner": "Andesite Mechanist Spawner",
+
+  "item.spawningindustry.soulbound_nexus": "Soulbound Nexus",
 
   "block.spawningindustry.haunted_iron_block": "Haunted Iron Block",
   "item.spawningindustry.haunted_iron_ingot": "Haunted Iron Ingot",
   "item.spawningindustry.haunted_iron_nugget": "Haunted Iron Nugget",
   "item.spawningindustry.haunted_iron_sheet": "Haunted Iron Sheet",
 
-  "tooltip.bound_to_soul": "Bound to the soul of a %s"
+  "tooltip.bound_to_soul": "Bound to the soul of a %s",
+
+  "tooltip.mechanist_spawner.bound_mob": "Bound to the soul of a %s",
+  "tooltip.mechanist_spawner.bound_mob.none": "Not bound to any soul",
+  "tooltip.mechanist_spawner.produced_drops": "Produces these items:",
+  "tooltip.mechanist_spawner.drop_item": "- %d x %s",
+  "tooltip.mechanist_spawner.produced_drops.none": "Produces nothing",
+  "create.gui.goggles.spawner_stats": "Spawner Stats:"
+
 }
