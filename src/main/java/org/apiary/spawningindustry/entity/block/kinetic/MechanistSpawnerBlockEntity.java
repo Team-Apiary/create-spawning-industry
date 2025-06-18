@@ -40,9 +40,7 @@ import org.apiary.spawningindustry.main.SIConstants;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Queue;
+import java.util.*;
 
 public class MechanistSpawnerBlockEntity extends KineticBlockEntity implements IHaveGoggleInformation {
 
@@ -135,6 +133,8 @@ public class MechanistSpawnerBlockEntity extends KineticBlockEntity implements I
 
     private void produceMobDrops() {
         List<ItemStack> drops = identifyDrops((ServerLevel) this.getLevel(), boundEntityType, this.getBlockPos());
+        EntityType<?> mobType = BuiltInRegistries.ENTITY_TYPE.get(boundEntityType);
+        drops = patchDrops(drops, mobType);
         pendingDrops.addAll(drops);
 
         SIConstants.LOGGER.info("Loot table roll returned {} items:", drops.size());
@@ -195,6 +195,19 @@ public class MechanistSpawnerBlockEntity extends KineticBlockEntity implements I
                 .create(LootContextParamSets.ENTITY);
 
         return lootTable.getRandomItems(lootParams);
+    }
+
+    private List<ItemStack> patchDrops(List<ItemStack> originalDrops, EntityType<?> mobType) {
+        // Create a new list based on the original drops.
+        List<ItemStack> patchedDrops = new ArrayList<>(originalDrops);
+
+        // Example patch for sheep: add extra wool if the mob type is sheep.
+        if (mobType.equals(EntityType.SHEEP)) {
+            int woolAmount = new Random().nextInt(3); // Generates a random number between 0 and 2 inclusive.
+            patchedDrops.add(new ItemStack(Items.WHITE_WOOL, woolAmount));
+        }
+
+        return patchedDrops;
     }
 
     public void clearPendingDrops() {
