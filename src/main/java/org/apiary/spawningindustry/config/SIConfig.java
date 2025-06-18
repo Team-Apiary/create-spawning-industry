@@ -15,6 +15,10 @@ public class SIConfig {
             .comment("Enable XP Output from Mechanist Spawners? (Default: True)")
             .define("generateXP", true);
 
+    private static final ModConfigSpec.BooleanValue LIQUID_XP = BUILDER
+            .comment("Use Create: Enchantment Industry Liquid XP instead of xp nuggets? (Default: False)")
+            .define("liquidXP", false);
+
     private static final ModConfigSpec.IntValue BRASS_SPAWNER_STRESS = BUILDER
             .comment("Brass Mechanist Spawner: Stress on mechanical system. (Higher = Harder to run)")
             .defineInRange("brassSpawnerStress", 256, 0, Integer.MAX_VALUE);
@@ -34,6 +38,7 @@ public class SIConfig {
     public static final ModConfigSpec SPEC = BUILDER.build();
 
     public static boolean generateXP;
+    public static boolean liquidXP;
     public static int brassSpawnerStress;
     public static int brassSpawnerWork;
     public static int andesiteSpawnerStress;
@@ -43,6 +48,7 @@ public class SIConfig {
     static void onLoad(final ModConfigEvent event) {
         try {
             generateXP = GENERATE_XP.get();
+            liquidXP = LIQUID_XP.get();
             brassSpawnerStress = BRASS_SPAWNER_STRESS.get();
             brassSpawnerWork = BRASS_SPAWNER_WORK.get();
             andesiteSpawnerStress = ANDESITE_SPAWNER_STRESS.get();
