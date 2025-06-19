@@ -19,6 +19,8 @@ public class SIConfig {
             .comment("Use Create: Enchantment Industry Liquid XP instead of xp nuggets? (Default: False)")
             .define("liquidXP", false);
 
+    //TODO: Speed required to start & How many kills
+
     private static final ModConfigSpec.IntValue BRASS_SPAWNER_STRESS = BUILDER
             .comment("Brass Mechanist Spawner: Stress on mechanical system. (Higher = Harder to run)")
             .defineInRange("brassSpawnerStress", 256, 0, Integer.MAX_VALUE);
