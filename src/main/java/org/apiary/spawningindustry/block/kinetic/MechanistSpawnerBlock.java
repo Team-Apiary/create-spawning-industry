@@ -5,7 +5,9 @@ import com.simibubi.create.content.kinetics.base.IRotate;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Direction.Axis;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
@@ -22,6 +24,7 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.apiary.spawningindustry.component.SIDataComponents;
+import org.apiary.spawningindustry.entity.block.kinetic.BrassMechanistSpawnerBlockEntity;
 import org.apiary.spawningindustry.entity.block.kinetic.MechanistSpawnerBlockEntity;
 import org.apiary.spawningindustry.item.SIItems;
 import org.jetbrains.annotations.NotNull;
@@ -70,6 +73,38 @@ public abstract class MechanistSpawnerBlock<T extends MechanistSpawnerBlockEntit
         }
 
         return InteractionResult.SUCCESS;
+    }
+
+    @Override
+    public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource random) {
+        super.animateTick(state, level, pos, random);
+        // Spawns Fire Particles within the spawner depending on the speed
+        BlockEntity be = level.getBlockEntity(pos);
+        if (be instanceof BrassMechanistSpawnerBlockEntity spawnerTE) {
+            if (spawnerTE.getEntityType() != null) {
+                float currentSpeed = Math.abs(spawnerTE.getSpeed());
+                if (currentSpeed <= 0.0f) {
+                    return;
+                }
+
+                float maxSpeed = 256f;
+                float speedFactor = Math.min(Math.max(currentSpeed / maxSpeed, 0f), 1f);
+                int particleCount = 1 + Math.round(speedFactor * 4);
+
+                double minOffset = 0.125;
+                double maxOffset = 1.0 - 0.125;
+
+                for (int i = 0; i < particleCount; i++) {
+                    double offsetX = minOffset + random.nextDouble() * (maxOffset - minOffset);
+                    double offsetY = minOffset + random.nextDouble() * (maxOffset - minOffset);
+                    double offsetZ = minOffset + random.nextDouble() * (maxOffset - minOffset);
+                    double x = pos.getX() + offsetX;
+                    double y = pos.getY() + offsetY;
+                    double z = pos.getZ() + offsetZ;
+                    level.addParticle(ParticleTypes.FLAME, x, y, z, 0.0, 0.0, 0.0);
+                }
+            }
+        }
     }
 
     // Accept a shaft only from the bottom.
