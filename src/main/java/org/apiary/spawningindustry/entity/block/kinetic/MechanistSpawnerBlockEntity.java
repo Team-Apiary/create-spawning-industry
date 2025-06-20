@@ -5,11 +5,8 @@ import com.simibubi.create.content.kinetics.base.IRotate;
 import com.simibubi.create.content.kinetics.base.KineticBlockEntity;
 import com.simibubi.create.foundation.utility.CreateLang;
 import net.minecraft.ChatFormatting;
-import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
+import net.minecraft.core.*;
 import net.minecraft.core.Direction.Axis;
-import net.minecraft.core.Holder;
-import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
@@ -26,6 +23,8 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.enchantment.Enchantment;
+import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.loot.LootParams;
@@ -199,16 +198,72 @@ public abstract class MechanistSpawnerBlockEntity extends KineticBlockEntity imp
     }
 
     private List<ItemStack> patchDrops(List<ItemStack> originalDrops, EntityType<?> mobType) {
-        // Add patches to the drops list for certain entities that need it.
+        Random random = new Random();
         List<ItemStack> patchedDrops = new ArrayList<>(originalDrops);
 
         if (mobType.equals(EntityType.SHEEP)) {
-            int woolAmount = new Random().nextInt(3);
+            int woolAmount = random.nextInt(3);
             patchedDrops.add(new ItemStack(Items.WHITE_WOOL, woolAmount));
         }
+        else if (mobType.equals(EntityType.PILLAGER)) {
+            if (random.nextFloat() < 0.025f) {
+                ItemStack crossbow = new ItemStack(Items.CROSSBOW, 1);
 
+                if (random.nextFloat() < 0.25f) {
+                    assert level != null;
+                    Registry<Enchantment> enchantRegistry = level
+                            .registryAccess()
+                            .registryOrThrow(Registries.ENCHANTMENT);
+
+                    List<Holder<Enchantment>> allowedEnchantments = List.of(
+                            enchantRegistry.getHolderOrThrow(Enchantments.UNBREAKING),
+                            enchantRegistry.getHolderOrThrow(Enchantments.QUICK_CHARGE),
+                            enchantRegistry.getHolderOrThrow(Enchantments.MULTISHOT),
+                            enchantRegistry.getHolderOrThrow(Enchantments.PIERCING)
+                    );
+
+                    float roll = random.nextFloat();
+                    int enchantCount;
+                    if (roll < 0.6f) {
+                        enchantCount = 1;
+                    } else if (roll < 0.9f) {
+                        enchantCount = 2;
+                    } else if (roll < 0.98f) {
+                        enchantCount = 3;
+                    } else {
+                        enchantCount = 4;
+                    }
+
+                    List<Holder<Enchantment>> shuffled = new ArrayList<>(allowedEnchantments);
+                    Collections.shuffle(shuffled, random);
+
+                    for (int i = 0; i < enchantCount; i++) {
+                        Holder<Enchantment> enchHolder = shuffled.get(i);
+                        Enchantment enchantment = enchHolder.value();
+                        int minLevel = enchantment.getMinLevel();
+                        int maxLevel = enchantment.getMaxLevel();
+                        int chosenLevel = minLevel + random.nextInt(maxLevel - minLevel + 1);
+
+                        crossbow.enchant(enchHolder, chosenLevel);
+                    }
+                }
+
+                int maxDamage = crossbow.getMaxDamage();
+                // Use a squared random value to bias toward lower damage (i.e., higher durability).
+                float r = random.nextFloat();
+                int damageValue = (int) (r * r * maxDamage);
+                crossbow.setDamageValue(damageValue);
+
+                patchedDrops.add(crossbow);
+            }
+            if (random.nextFloat() < 0.0832f) {
+                patchedDrops.add(new ItemStack(Items.EMERALD, 1));
+            }
+            patchedDrops.add(new ItemStack(Items.ARROW, random.nextInt(2)));
+        }
         return patchedDrops;
     }
+
 
     //This method exists to be overridden by the two different spawners.
     protected List<ItemStack> handleXP(List<ItemStack> originalDrops) {
